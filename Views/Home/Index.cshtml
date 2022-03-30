@@ -1,0 +1,59 @@
+﻿@{ ViewData["Title"] = "Home Page"; }
+
+@model List<Bowler>
+
+<h1>@ViewBag.TeamName</h1>
+
+<h2>Bowler List</h2>
+
+<a asp-action="Form" class="btn btn-primary">Create a Bowler</a>
+<br />
+<br />
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Middle Init</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model?.Count() > 0)
+        {
+            foreach (var b in Model)
+            {
+<tr>
+    <td>@b.BowlerFirstName</td>
+    @if (b.BowlerMiddleInit == "NULL")
+    {
+<td></td> }
+                    else
+                    {
+<td>@b.BowlerMiddleInit</td>}
+    <td>@b.BowlerLastName</td>
+    <td>@b.BowlerAddress</td>
+    <td>@b.BowlerCity</td>
+    <td>@b.BowlerState</td>
+    <td>@b.BowlerZip</td>
+    <td>@b.BowlerPhoneNumber</td>
+    <td>
+        <a class="btn btn-warning" asp-action="Edit" asp-route-bowlerId="@b.BowlerID">Edit</a>
+    </td>
+    <td>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-bowlerId="@b.BowlerID">Delete</a>
+    </td>
+</tr> }
+            }
+            else
+            {
+<tr>
+    <td colspan="5" class="text-center">No Bowler</td>
+</tr>}
+    </tbody>
+</table>
